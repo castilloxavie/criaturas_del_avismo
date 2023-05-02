@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONSTRUOPOLIS: La Batalla de las Bestias</title>
+    <script src="./js-criaturas_del_avismo/criaturas_del_avismo.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+    <body>
+
+        <section id="seleccionar_monstruos">
+            <h1 class="titulo">☠️👾MONSTRUOPOLIS👾☠️→ ☘️💧🔥</h1>
+
+            <h2 class="subtitulo"> Elige tu Monstruo:</h2>
+
+            <div class="tarjetas">
+                <input type="radio"  name="monstruos" id="Gorgoroth" />
+                <label class="tarjeta_Monstruo" for="Gorgoroth">
+                    <p>Gorgoroth </p>
+                    <img src="./monstris/Gorgoroth.png" alt="Gorgoroth">
+                </label>
+                
+                <input type="radio" name="monstruos" id="Zillax" />
+                <label class="tarjeta_Monstruo" for="Zillax">
+                    <p>Zillax </p>
+                    <img src="./monstris/Zillax.png" alt="Zillax">
+                </label>
+                
+                <input type="radio" name="monstruos" id="Necronius" />
+                <label class="tarjeta_Monstruo" for="Necronius">
+                    <p>Necronius </p>
+                    <img src="./monstris/Necronius.png" alt="Necronius"> 
+                </label>
+                
+        
+            </div>
+
+            <button id="boton-monstruos">Seleccionar 🤜🤛</button>
+
+        </section>
+
+        <section id="seleccionar_ataque">
+            <h1 class="titulo">☠️👾MONSTRUOPOLIS👾☠️→ ☘️💧🔥</h1>
+
+            <h2 class="subtitulo"> Elige tu Ataque:</h2>
+           
+
+            <div class="tarjetas_ataques">
+                <button id="boton-fuego" class="botonAtaque">Fuego🔥</button>
+                <button id="boton-agua" class="botonAtaque">Agua 💧</button>
+                <button id="boton-tierra" class="botonAtaque"> Tierra ☘️</button>
+            </div>
+
+
+            <div id="Mensajes">
+                <p id="resultadoss"> ¡Te deseo lo mejor! </p>
+
+                <section id="reiniciar">
+                    <button id="boton_reinicio"> Reiniciar ◌</button>
+                </section>
+
+            </div> 
+
+            <div class="ataques">
+                <div class="ata_jugador">
+                    <p id="vidas_jugadoe">3</p>
+                    <p id="monstruo_jugador"></p>
+                    <div id="ataques-Jugador"></div>
+                    
+                </div>
+                <div class="ata_enemigo">
+                    <p id="vidas_enemigo">3</p>
+                    <p id="monstruo_enemigo"></p>
+                    <div id="ataques-Enemigo"></div>
+                    
+                </div>
+  
+            </div>
+
+            
+        </section>
+    </body>
+</html>

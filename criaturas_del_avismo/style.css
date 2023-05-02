@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@300&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to left, #19A7CE, #146C94, #B0DAFF);
+}
+
+#seleccionar_monstruos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo{
+    color: white;
+    font-size: 35px;
+    font-family: 'Passion One', cursive;
+
+}
+
+.subtitulo{
+    color: white;
+    font-size: 25px;
+}
+
+.tarjetas, .tarjetas_ataques{
+    display: flex;
+    gap: 10px;
+}
+
+.tarjeta_Monstruo{
+    width: 180;
+    height: 122px;
+    background: #212f4b;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: white;
+    
+
+}
+
+.tarjeta_Monstruo img{
+    width: 80px;
+}
+
+input{
+    display: none;
+}
+
+input:checked + label {
+    width: 180px;
+    background-color: blue;
+
+}
+
+#boton-monstruos{
+    width: 180px;
+    height: 50px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px, solid black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 30px;
+}
+#seleccionar_ataque{
+    flex-direction: column;
+    align-items: center;
+}
+
+.botonAtaque{
+    background: #394867;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border-color: #394867 ;
+    width: 100px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+#Mensajes{
+    width: 280px;
+    background: #394867;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    flex-direction: column;
+}
+
+#boton_reinicio{
+    border: none;
+    border-radius: 15px;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ataques{
+   display: grid;
+   grid-auto-flow: column;
+   grid-column-gap: 10px;
+   grid-template-columns: 100px, 100px; 
+   color: white;
+}
+
+#vidas_jugadoe, #vidas_enemigo{
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.ata_jugador, .ata_enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+@media(max-width:360px ){
+    .tarjetas, .tarjetas_ataques{
+        flex-direction: column;
+
+    }
+    
+}
