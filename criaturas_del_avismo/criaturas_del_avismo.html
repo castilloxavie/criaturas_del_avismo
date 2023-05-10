@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MONSTRUOPOLIS: La Batalla de las Bestias</title>
-    <script src="./js-criaturas_del_avismo/criaturas_del_avismo.js"></script>
     <link rel="stylesheet" href="./style.css">
 </head>
     <body>
@@ -15,26 +14,8 @@
 
             <h2 class="subtitulo"> Elige tu Monstruo:</h2>
 
-            <div class="tarjetas">
-                <input type="radio"  name="monstruos" id="Gorgoroth" />
-                <label class="tarjeta_Monstruo" for="Gorgoroth">
-                    <p>Gorgoroth </p>
-                    <img src="./monstris/Gorgoroth.png" alt="Gorgoroth">
-                </label>
-                
-                <input type="radio" name="monstruos" id="Zillax" />
-                <label class="tarjeta_Monstruo" for="Zillax">
-                    <p>Zillax </p>
-                    <img src="./monstris/Zillax.png" alt="Zillax">
-                </label>
-                
-                <input type="radio" name="monstruos" id="Necronius" />
-                <label class="tarjeta_Monstruo" for="Necronius">
-                    <p>Necronius </p>
-                    <img src="./monstris/Necronius.png" alt="Necronius"> 
-                </label>
-                
-        
+            <div id="contenedor_tarjetas" class="tarjetas">
+
             </div>
 
             <button id="boton-monstruos">Seleccionar 🤜🤛</button>
@@ -78,8 +59,7 @@
                 </div>
   
             </div>
-
-            
         </section>
+        <script src="./js-criaturas_del_avismo/criaturas_del_avismo.js"></script>
     </body>
 </html>

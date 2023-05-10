@@ -1,44 +1,109 @@
+const seccionSeleccionarAtaque = document.getElementById('seleccionar_ataque')
+const seccionReicicio = document.getElementById('boton_reinicio')
+const botonMonstruoJugar = document.getElementById("boton-monstruos")
+const botonFuego = document.getElementById('boton-fuego')
+const botonAgua = document.getElementById('boton-agua')
+const botonTierra = document.getElementById('boton-tierra')
+const botonRiniciar = document.getElementById('boton_reinicio')
+
+const seccionSeleccionarMascota = document.getElementById('seleccionar_monstruos')
+const spanMascotaJugador = document.getElementById('monstruo_jugador')
+
+const spanMascotaEnemigo = document.getElementById('monstruo_enemigo')
+
+const spanVidasJugador = document.getElementById('vidas_jugadoe')
+const spanVidasEnemigo = document.getElementById('vidas_enemigo')
+
+const seccionMensajes = document.getElementById('resultadoss')
+const ataquesJugador = document.getElementById('ataques-Jugador')
+const ataquesEnemigo = document.getElementById('ataques-Enemigo')
+const contenedor_tarjetas = document.getElementById('contenedor_tarjetas')
+
+let mostruoss = []
 let ataqueJugador =""
 let ataqueEnemigo =""
+let opcionMonstruos
+let inputGorgoroth  
+let inputZillax 
+let inputNecronius 
 let vidasJugador = 3
 let vidasEnemigo = 3
 
+class Mostruos{
+    constructor(
+        nombre, foto, vida) {
+            this.nombre = nombre
+            this.foto = foto
+            this.vida = vida
+            this.ataques = []
+        }
+}
+
+let Gorgoroth  = new Mostruos('Gorgoroth', './monstris/Gorgoroth.png', 5)
+
+let Zillax = new Mostruos ('Zillax', './monstris/Zillax.png', 5)
+
+let Necronius = new Mostruos ('Necronius', './monstris/Necronius.png', 5)
+
+Gorgoroth.ataques.push(
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '☘️', id: 'boton-tierra'}
+)
+
+Zillax.ataques.push(
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'}
+)
+
+Necronius.ataques.push(
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '💧', id: 'boton-agua'}
+)
+
+mostruoss.push(Gorgoroth, Zillax, Necronius)
+
+
 function iniciarJuego() {
-    let seccionSeleccionarAtaque = document.getElementById('seleccionar_ataque')
+    
     seccionSeleccionarAtaque.style.display = 'none'
 
-    let seccionReicicio = document.getElementById('boton_reinicio')
+    mostruoss.forEach((mostruo) => {
+        opcionMonstruos = `
+        <input type="radio"  name="monstruos" id=${mostruo.nombre} />
+        <label class="tarjeta_Monstruo" for=${mostruo.nombre}>
+            <p>${mostruo.nombre} </p>
+            <img src=${mostruo.foto} alt=${mostruo.nombre}>
+        </label>
+        `
+    contenedor_tarjetas.innerHTML += opcionMonstruos
+
+     inputGorgoroth = document.getElementById('Gorgoroth')
+     inputZillax = document.getElementById('Zillax')
+     inputNecronius = document.getElementById('Necronius')
+
+    })
+
     seccionReicicio.style.display = 'none'
-
-
-    let botonMonstruoJugar = document.getElementById("boton-monstruos")
     botonMonstruoJugar.addEventListener('click', seleccionarMascotaJugador)
-
-    let botonFuego = document.getElementById('boton-fuego')
     botonFuego.addEventListener('click', ataqueFuego)
-    
-    let botonAgua = document.getElementById('boton-agua')
     botonAgua.addEventListener('click', ataqueAgua)
-
-    let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click', ataqueTierra)
-
-    let botonRiniciar = document.getElementById('boton_reinicio')
     botonRiniciar.addEventListener('click',  reiniciarJuego)
-
 }
 
 function seleccionarMascotaJugador() {
-    let seccionSeleccionarMascota = document.getElementById('seleccionar_monstruos')
+   
     seccionSeleccionarMascota.style.display = 'none'
-
-    let seccionSeleccionarAtaque = document.getElementById('seleccionar_ataque')
     seccionSeleccionarAtaque.style.display = 'flex'
-
-    let inputGorgoroth = document.getElementById('Gorgoroth')
-    let inputZillax = document.getElementById('Zillax')
-    let inputNecronius = document.getElementById('Necronius')
-    let spanMascotaJugador = document.getElementById('monstruo_jugador')
 
     if (inputGorgoroth.checked) {
         spanMascotaJugador.innerHTML='Gorgoroth'
@@ -58,9 +123,7 @@ function seleccionarMascotaJugador() {
 
 function seleccionarMascotaEnemigo() {
     let selccionMascotaAleatoria = aleatorio(1,3)
-    let spanMascotaEnemigo = document.getElementById('monstruo_enemigo')
-
-
+    
     if ( selccionMascotaAleatoria == 1){
         spanMascotaEnemigo.innerHTML = 'Gorgoroth'
     }
@@ -69,12 +132,8 @@ function seleccionarMascotaEnemigo() {
     }
     else{
         spanMascotaEnemigo.innerHTML = 'Necronius'
-    }
-    
-    
+    } 
 }
-
-
 
 function ataqueFuego() {
     ataqueJugador  = "FUEGO"
@@ -111,9 +170,7 @@ function ataqueAleatorioEnemigo() {
 
 
 function combate() {
-    let spanVidasJugador = document.getElementById('vidas_jugadoe')
-    let spanVidasEnemigo = document.getElementById('vidas_enemigo')
-
+    
     if (ataqueEnemigo == ataqueJugador) {
         craerMensajes("EMPATE 😒")
     }
@@ -152,10 +209,7 @@ function revisarVidas() {
 }
 
 function craerMensajes(resultado) {
-    let seccionMensajes = document.getElementById('resultadoss')
-    let ataquesJugador = document.getElementById('ataques-Jugador')
-    let ataquesEnemigo = document.getElementById('ataques-Enemigo')
-
+    
     let nuevoAtaqueJugador  = document.createElement('p')
     let nuevoAtaqueEnemigo  = document.createElement('p')
 
@@ -171,21 +225,11 @@ function craerMensajes(resultado) {
 }
 
 function crearMensajeVidaFinal(resultadosVidas) {
-    let seccionMensajes = document.getElementById('resultadoss')
-
-    seccionMensajes.innerHTML = resultadosVidas
-
-    let botonFuego = document.getElementById('boton-fuego')
-    botonFuego.disabled= true
     
-    let botonAgua = document.getElementById('boton-agua')
+    seccionMensajes.innerHTML = resultadosVidas
+    botonFuego.disabled= true
     botonAgua.disabled= true
-
-    let botonTierra = document.getElementById('boton-tierra')
     botonTierra.disabled= true
-
-
-    let seccionReicicio = document.getElementById('boton_reinicio')
     seccionReicicio.style.display = 'block'
 
 
