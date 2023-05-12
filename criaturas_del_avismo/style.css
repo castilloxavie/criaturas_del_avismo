@@ -79,7 +79,7 @@ input:checked + label {
     box-sizing: border-box;
     border-radius: 10px;
     border-color: #394867 ;
-    width: 100px;
+    width: 80px;
     color: white;
     font-family: 'Poppins', sans-serif;
 }
@@ -122,6 +122,16 @@ input:checked + label {
     align-items: center;
   }
 
+#verMapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#mapa{
+    border: 2px solid black;
+}
 
 @media(max-width:360px ){
     .tarjetas, .tarjetas_ataques{
