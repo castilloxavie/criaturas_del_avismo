@@ -1,10 +1,9 @@
 const seccionSeleccionarAtaque = document.getElementById('seleccionar_ataque')
 const seccionReicicio = document.getElementById('boton_reinicio')
 const botonMonstruoJugar = document.getElementById("boton-monstruos")
-const botonFuego = document.getElementById('boton-fuego')
-const botonAgua = document.getElementById('boton-agua')
-const botonTierra = document.getElementById('boton-tierra')
-const botonRiniciar = document.getElementById('boton_reinicio')
+botonRiniciar = document.getElementById('boton_reinicio')
+seccionSeleccionarAtaque.style.display = 'none'
+
 
 const seccionSeleccionarMascota = document.getElementById('seleccionar_monstruos')
 const spanMascotaJugador = document.getElementById('monstruo_jugador')
@@ -18,14 +17,20 @@ const seccionMensajes = document.getElementById('resultadoss')
 const ataquesJugador = document.getElementById('ataques-Jugador')
 const ataquesEnemigo = document.getElementById('ataques-Enemigo')
 const contenedor_tarjetas = document.getElementById('contenedor_tarjetas')
+const contenedorAtaque = document.getElementById('contenedorAtaque')
 
 let mostruoss = []
-let ataqueJugador =""
-let ataqueEnemigo =""
+let ataqueJugador 
+let ataqueEnemigo 
 let opcionMonstruos
 let inputGorgoroth  
 let inputZillax 
 let inputNecronius 
+let monstruoJugador
+let ataquesMonstruos
+let botonFuego 
+let botonAgua 
+let botonTierra 
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -74,7 +79,7 @@ mostruoss.push(Gorgoroth, Zillax, Necronius)
 
 function iniciarJuego() {
     
-    seccionSeleccionarAtaque.style.display = 'none'
+    
 
     mostruoss.forEach((mostruo) => {
         opcionMonstruos = `
@@ -92,11 +97,9 @@ function iniciarJuego() {
 
     })
 
-    seccionReicicio.style.display = 'none'
+    
     botonMonstruoJugar.addEventListener('click', seleccionarMascotaJugador)
-    botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra)
+    
     botonRiniciar.addEventListener('click',  reiniciarJuego)
 }
 
@@ -106,33 +109,61 @@ function seleccionarMascotaJugador() {
     seccionSeleccionarAtaque.style.display = 'flex'
 
     if (inputGorgoroth.checked) {
-        spanMascotaJugador.innerHTML='Gorgoroth'
+        spanMascotaJugador.innerHTML= inputGorgoroth.id
+        monstruoJugador = inputGorgoroth.id
     }
      else if (inputZillax.checked) {
-        spanMascotaJugador.innerHTML='Zillax'
+        spanMascotaJugador.innerHTML= inputZillax.id
+        monstruoJugador = inputZillax.id
     } 
     else if (inputNecronius.checked) {
-        spanMascotaJugador.innerHTML='Necronius'
+        spanMascotaJugador.innerHTML= inputNecronius.id
+        monstruoJugador = inputNecronius.id
     } 
     else {
         alert('Selecciona una monstruo')
     }
 
+    extraerAtaques(monstruoJugador)
     seleccionarMascotaEnemigo()
 }
+function extraerAtaques(monstruoJugador) {
+    let ataques;
+    for (let i = 0; i < mostruoss.length; i++) {
+        if (monstruoJugador === mostruoss[i].nombre) {
+            ataques = mostruoss[i].ataques;
+        }
+    }
+    
+    mostrarAtaques(ataques)
+}
+
+function mostrarAtaques(ataques) {
+    ataques.forEach((ataque) =>{
+        ataquesMonstruos = `
+        <button id=${ataque.id} class="botonAtaque">${ataque.nombre}</button>
+        `
+        contenedorAtaque.innerHTML += ataquesMonstruos
+    })
+
+     botonFuego = document.getElementById('boton-fuego')
+     botonAgua = document.getElementById('boton-agua')
+     botonTierra = document.getElementById('boton-tierra')
+     
+     botonFuego.addEventListener('click', ataqueFuego)
+     botonAgua.addEventListener('click', ataqueAgua)
+     botonTierra.addEventListener('click', ataqueTierra)
+        
+    
+        
+}
+
 
 function seleccionarMascotaEnemigo() {
-    let selccionMascotaAleatoria = aleatorio(1,3)
+    let selccionMascotaAleatoria = aleatorio(0, mostruoss.length -1)
     
-    if ( selccionMascotaAleatoria == 1){
-        spanMascotaEnemigo.innerHTML = 'Gorgoroth'
-    }
-    else if ( selccionMascotaAleatoria ==2){
-        spanMascotaEnemigo.innerHTML = 'Zillax'
-    }
-    else{
-        spanMascotaEnemigo.innerHTML = 'Necronius'
-    } 
+    spanMascotaEnemigo.innerHTML = mostruoss[selccionMascotaAleatoria].nombre
+    
 }
 
 function ataqueFuego() {
