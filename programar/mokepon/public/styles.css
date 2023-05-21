@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #041562;
+  background:linear-gradient(to left, grey 30%, green 60%  , black );
 }
 
 #seleccionar-mascota {
@@ -13,13 +13,13 @@ body {
 }
 
 .titulo {
-  color: white;
+  color: black;
   font-size: 32px;
   font-family: 'Fredoka One', cursive;
 }
 
 .subtitulo {
-  color: white;
+  color: black;
   font-size: 20px;
 }
 
@@ -31,14 +31,14 @@ body {
 .tarjeta-de-mokepon {
   width: 180px;
   height: 100px;
-  background: #11468F;
+  background: #456ea8;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
 }
 
 .tarjeta-de-mokepon img {
@@ -50,8 +50,8 @@ body {
   height: 40px;
   border-radius: 20px;
   background: transparent;
-  border: 2px solid white;
-  color: white;
+  border: 2px solid black;
+  color: black;
   font-family: 'Poppins', sans-serif;
   margin-top: 30px;
 }
@@ -77,13 +77,13 @@ input:checked + label {
   border-radius: 20px;
   border-color: transparent;
   width: 80px;
-  color: white;
+  color: black;
   font-family: 'Poppins', sans-serif;
 }
 
 #mensajes {
   width: 280px;
-  background: #EEEEEE;
+  background: black;
   padding: 20px;
   margin-top: 20px;
   border-radius: 20px;
@@ -94,14 +94,14 @@ input:checked + label {
 
 #boton-reiniciar {
   border: none;
-  color: #11468F;
+  color: black;
   font-family: 'Poppins', sans-serif;
 }
 
 .ataques {
   display: grid;
   grid-template-columns: 100px 100px;
-  color: white;
+  color: black;
 }
 
 #vidas-jugador, #vidas-enemigo {
@@ -126,8 +126,8 @@ input:checked + label {
   height: 40px;
   border-radius: 20px;
   background: transparent;
-  border: 2px solid white;
-  color: white;
+  border: 2px solid black;
+  color: black;
   font-family: 'Poppins', sans-serif;
   margin: 10px 0;
 }
