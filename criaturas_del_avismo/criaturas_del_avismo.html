@@ -25,7 +25,10 @@
         <section id="verMapa">
             <h1 class="titulo">👾Recorre el mapa con tu "MONSTRUO"👾</h1>
             <canvas id="mapa"></canvas>
-            <button onclick="Gorgoroth">Mover</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
         </section>
 
         <section id="seleccionar_ataque">

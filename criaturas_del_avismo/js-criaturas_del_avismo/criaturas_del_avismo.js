@@ -30,6 +30,7 @@ let inputGorgoroth
 let inputZillax 
 let inputNecronius 
 let monstruoJugador
+let monstruoJugadorObjeto
 let ataquesMonstruos
 let ataqueMonstruosEnemigos
 let botonFuego 
@@ -44,6 +45,9 @@ let ataqueJugadors = []
 let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground. src = '/monstris/mosntromap.png'
 
 class Mostruos{
     constructor(
@@ -58,6 +62,8 @@ class Mostruos{
             this.ancho = 80
             this.mapafoto = new Image()
             this.mapafoto.src = foto
+            this.velocidadX = 0
+            this.velocidadY = 0
         }
 }
 
@@ -126,7 +132,8 @@ function seleccionarMascotaJugador() {
    
     seccionSeleccionarMascota.style.display = 'none'
     //seccionSeleccionarAtaque.style.display = 'flex'
-    seccionMapa.style.display = 'flex'
+    
+   
     
 
     if (inputGorgoroth.checked) {
@@ -146,6 +153,8 @@ function seleccionarMascotaJugador() {
     }
 
     extraerAtaques(monstruoJugador)
+    seccionMapa.style.display = 'flex'
+    iniciarMapa()
     seleccionarMascotaEnemigo()
 }
 function extraerAtaques(monstruoJugador) {
@@ -333,20 +342,91 @@ function aleatorio(min, max) {
     return Math.floor(Math.random()* (max - min+1)+ min)
 }
 
-function pintarPersonaje() {
-    lienzo.clearReact(0,0,width, mapa.heigth)
+
+function pintarCanvas() {
+    monstruoJugadorObjeto.x = monstruoJugadorObjeto.x + monstruoJugadorObjeto.velocidadX
+    monstruoJugadorObjeto.y = monstruoJugadorObjeto.y + monstruoJugadorObjeto.velocidadY
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
-        Gorgoroth.mapaFoto,
-        Gorgoroth.x,
-        Gorgoroth.y,
-        Gorgoroth.ancho,
-        Gorgoroth.alto
-        
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
     )
+    lienzo.drawImage(
+        monstruoJugadorObjeto.mapafoto,
+        monstruoJugadorObjeto.x,
+        monstruoJugadorObjeto.y,
+        monstruoJugadorObjeto.ancho,
+        monstruoJugadorObjeto.alto
+    )
+     
 }
-function moverGorgoroth(params) {
-    Gorgoroth.x = Gorgoroth.x + 5
-    pintarPersonaje()
+
+function moverDerecha() {
+    monstruoJugadorObjeto.velocidadX = 5
 }
+
+function moverIzquierda() {
+    monstruoJugadorObjeto.velocidadX = -5
+}
+
+function moverAbajo() {
+    monstruoJugadorObjeto.velocidadY = 5
+}
+
+function moverArriba() {
+    
+    monstruoJugadorObjeto.velocidadY = -5
+}
+
+function detenerMovimiento() {
+    
+    monstruoJugadorObjeto.velocidadX = 0
+    monstruoJugadorObjeto.velocidadY = 0
+}
+
+function sePresionoTecla(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+            moverArriba()
+            
+            
+        case 'ArrowDown':
+            moverAbajo()
+            break
+
+        case 'ArrowLeft':
+            moverIzquierda()
+            break
+
+        case 'ArrowRigth':
+            moverDerecha()
+            break
+
+        default:
+            break
+    }
+}
+
+function iniciarMapa() {
+    mapa.width = 600
+    mapa.height = 400
+    monstruoJugadorObjeto = obtenerObjetoMascota(monstruoJugador)
+    console.log(monstruoJugadorObjeto, monstruoJugador);
+    intervalo = setInterval(pintarCanvas, 50)
+
+    window.addEventListener('keydown', sePresionoTecla)
+    window.addEventListener('keyup', detenerMovimiento)
+    
+}
+ function obtenerObjetoMascota() {
+    for (let i = 0; i < mostruoss.length; i++) {
+        if (monstruoJugador === mostruoss[i].nombre) {
+            return mostruoss[i]
+        }
+    }
+ }
 
 window.addEventListener('load', iniciarJuego)
