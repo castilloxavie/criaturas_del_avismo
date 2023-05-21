@@ -129,14 +129,30 @@ input:checked + label {
 
 }
 
-#mapa{
-    border: 2px solid black;
+#verMapa button{
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid rgb(26, 14, 14);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin: 10px 0;
 }
 
-@media(max-width:360px ){
+@media(max-width:560px ){
     .tarjetas, .tarjetas_ataques{
         flex-direction: column;
 
+    }
+    
+}
+
+@media(max-width:300px ){
+    #verMapa div{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
     
 }

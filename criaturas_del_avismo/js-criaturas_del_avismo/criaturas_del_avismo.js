@@ -22,6 +22,8 @@ const contenedorAtaque = document.getElementById('contenedorAtaque')
 const seccionMapa = document.getElementById('verMapa')
 const canvasMapa = document.getElementById('mapa')
 
+
+
 let mostruoss = []
 let ataqueJugador 
 let ataqueEnemigo = []
@@ -32,13 +34,13 @@ let inputNecronius
 let monstruoJugador
 let monstruoJugadorObjeto
 let ataquesMonstruos
-let ataqueMonstruosEnemigos
+let ataqueMonstruosEnemigo
 let botonFuego 
 let botonAgua 
 let botonTierra 
 let botones = []
 let indexAtaqueJUgador
-let indexAtaqueEnmigo
+let indexAtaqueEnemigo
 let victoriasJUgador = 0
 let victoriasEnemigo = 0
 let ataqueJugadors = []
@@ -48,32 +50,65 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground. src = '/monstris/mosntromap.png'
+let alturaBuscamos
+let anchoMapa = window.innerWidth - 20
+const anchoMaxMapa = 350
+
+if (anchoMapa > anchoMaxMapa){
+    anchoMapa = anchoMaxMapa - 20
+}
+
+alturaBuscamos = anchoMapa * 600 / 800
+mapa.width = anchoMapa
+mapa.height = alturaBuscamos
 
 class Mostruos{
     constructor(
-        nombre, foto, vida) {
+        nombre, foto, vida, fotoMapa) {
             this.nombre = nombre
             this.foto = foto
             this.vida = vida
             this.ataques = []
-            this.x = 20
-            this.y =30
-            this.alto = 80
-            this.ancho = 80
+            this.alto = 40
+            this.ancho = 40
+            this.x = aleatorio(0,mapa.width - this.ancho )
+            this.y = aleatorio(0, mapa.height - this.alto)
             this.mapafoto = new Image()
-            this.mapafoto.src = foto
+            this.mapafoto.src = fotoMapa
             this.velocidadX = 0
             this.velocidadY = 0
         }
+        pintarMosntruosEnemigos(){
+            lienzo.drawImage(
+                this.mapafoto,
+                this.x,
+                this.y,
+                this.ancho,
+                this.alto
+            )
+        }
 }
 
-let Gorgoroth  = new Mostruos('Gorgoroth', './monstris/Gorgoroth.png', 5)
+let Gorgoroth  = new Mostruos('Gorgoroth', './monstris/Gorgoroth.png', 5, '/monstris/Gorgoroth_hear.png')
 
-let Zillax = new Mostruos ('Zillax', './monstris/Zillax.png', 5)
+let Zillax = new Mostruos ('Zillax', './monstris/Zillax.png', 5, '/monstris/Zillax_hear.png')
 
-let Necronius = new Mostruos ('Necronius', './monstris/Necronius.png', 5)
+let Necronius = new Mostruos ('Necronius', './monstris/Necronius.png', 5, '/monstris/Necronius_hear.png')
+
+let GodzillaEne  = new Mostruos('Gorgoroth', './monstris/Gorgoroth.png', 5, '/monstris/Gorgoroth_hear.png')
+
+let MomiaEne = new Mostruos ('Zillax', './monstris/Zillax.png', 5, '/monstris/Zillax_hear.png')
+
+let KrakenEne = new Mostruos ('Necronius', './monstris/Necronius.png', 5, '/monstris/Necronius_hear.png')
 
 Gorgoroth.ataques.push(
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '☘️', id: 'boton-tierra'}
+)
+GodzillaEne.ataques.push(
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
@@ -88,8 +123,22 @@ Zillax.ataques.push(
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '🔥', id: 'boton-fuego'}
 )
+MomiaEne.ataques.push(
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'}
+)
 
 Necronius.ataques.push(
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '☘️', id: 'boton-tierra'},
+    {nombre: '💧', id: 'boton-agua'}
+)
+KrakenEne.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
@@ -131,7 +180,7 @@ function iniciarJuego() {
 function seleccionarMascotaJugador() {
    
     seccionSeleccionarMascota.style.display = 'none'
-    //seccionSeleccionarAtaque.style.display = 'flex'
+    
     
    
     
@@ -155,7 +204,7 @@ function seleccionarMascotaJugador() {
     extraerAtaques(monstruoJugador)
     seccionMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarMascotaEnemigo()
+    
 }
 function extraerAtaques(monstruoJugador) {
     let ataques
@@ -214,17 +263,17 @@ function secuenciaAtaque() {
 }
 
 
-function seleccionarMascotaEnemigo() {
-    let selccionMascotaAleatoria = aleatorio(0, mostruoss.length -1)
+function seleccionarMascotaEnemigo(enemigo) { 
     
-    spanMascotaEnemigo.innerHTML = mostruoss[selccionMascotaAleatoria].nombre
-    ataqueMonstruosEnemigos = mostruoss[selccionMascotaAleatoria].ataques
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
+    ataqueMonstruosEnemigo = enemigo.ataques
     secuenciaAtaque()
     
 }
 
 function ataqueAleatorioEnemigo() {
-    let atacqueAleatorio = aleatorio(0, ataqueMonstruosEnemigos.length -1)
+    console.log("atques del enemigo");
+    let atacqueAleatorio = aleatorio(0, ataqueMonstruosEnemigo.length -1)
 
     if (atacqueAleatorio == 0 || atacqueAleatorio == 1 ){
         ataqueEnemigo.push("FUEGO")
@@ -354,13 +403,18 @@ function pintarCanvas() {
         mapa.width,
         mapa.height
     )
-    lienzo.drawImage(
-        monstruoJugadorObjeto.mapafoto,
-        monstruoJugadorObjeto.x,
-        monstruoJugadorObjeto.y,
-        monstruoJugadorObjeto.ancho,
-        monstruoJugadorObjeto.alto
-    )
+    monstruoJugadorObjeto.pintarMosntruosEnemigos()
+    GodzillaEne.pintarMosntruosEnemigos()
+    MomiaEne.pintarMosntruosEnemigos()
+    KrakenEne.pintarMosntruosEnemigos()
+    if(
+        monstruoJugadorObjeto.velocidadX !==0 ||
+        monstruoJugadorObjeto.velocidadY !==0
+    ){
+        revisarChoques(GodzillaEne)
+        revisarChoques(MomiaEne)
+        revisarChoques(KrakenEne)
+    }
      
 }
 
@@ -411,8 +465,7 @@ function sePresionoTecla(event) {
 }
 
 function iniciarMapa() {
-    mapa.width = 600
-    mapa.height = 400
+    
     monstruoJugadorObjeto = obtenerObjetoMascota(monstruoJugador)
     console.log(monstruoJugadorObjeto, monstruoJugador);
     intervalo = setInterval(pintarCanvas, 50)
@@ -427,6 +480,33 @@ function iniciarMapa() {
             return mostruoss[i]
         }
     }
+ }
+
+ function revisarChoques(enemigo) {
+    const arribaEnemigo = enemigo.y
+    const abaojoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMonstruo = monstruoJugadorObjeto.y
+    const abajoMonstruo = monstruoJugadorObjeto.y + monstruoJugadorObjeto.alto
+    const derechaMostruo = monstruoJugadorObjeto.x + monstruoJugadorObjeto.ancho
+    const izquierdaMostruo = monstruoJugadorObjeto.x
+    if(
+       abajoMonstruo  < arribaEnemigo ||
+       arribaMonstruo > abaojoEnemigo ||
+       derechaMostruo < izquierdaEnemigo ||
+       izquierdaMostruo > derechaEnemigo
+    ){
+        return
+    }
+    detenerMovimiento()
+    clearInterval(intervalo)
+    console.log("sedectecto");
+    seccionSeleccionarAtaque.style.display = 'flex'
+    seccionMapa.style.display = 'none'
+    seleccionarMascotaEnemigo(enemigo)
+    
  }
 
 window.addEventListener('load', iniciarJuego)
